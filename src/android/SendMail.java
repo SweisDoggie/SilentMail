@@ -31,7 +31,29 @@ public class SendMail extends CordovaPlugin {
 						String sender = args.getString("sender");
 						String password = args.getString("password");
 						String recipients = args.getString("recipients");
-						String attachFiles[] = args.getJSONArray("attachFiles");
+                                                
+                                                
+                                                	String[] list = null;
+                                                        if (args.has("attachFiles")) {
+                                                                JSONArray json;
+                                                                try {
+                                                                        json = args.getJSONArray("attachFiles");
+                                                                        int lenFeatures = json.length();
+                                                                        list = new String[lenFeatures];
+                                                                        for (int j = 0; j < lenFeatures; j++) {
+                                                                                String f = json.getString(j);
+                                                                                list[j] = f;
+                                                                        }
+                                                                } catch (JSONException e) {
+                                                                       // e.printStackTrace();
+                                                                }
+
+                                                        }
+                                                        
+                                                 String attachFiles[] = list;
+                                                
+                                                
+						//String attachFiles[] = args.getJSONArray("attachFiles");
 						
 
 						// Create the sender
