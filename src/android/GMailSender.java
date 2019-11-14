@@ -96,7 +96,7 @@ public class GMailSender extends javax.mail.Authenticator {
         // }
         
                 // adds attachments
-        if (attachFiles != null && attachFiles.length > 0) {
+   /*     if (attachFiles != null && attachFiles.length > 0) {
             for (String filePath : attachFiles) {
                 MimeBodyPart attachPart = new MimeBodyPart();
  
@@ -115,7 +115,7 @@ public class GMailSender extends javax.mail.Authenticator {
  
                 //multipart.addBodyPart(attachPart);
             }
-        }
+        }   */
 
         // Put parts in message
         message.setContent(multipart);
