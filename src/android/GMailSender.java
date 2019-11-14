@@ -40,7 +40,9 @@ public class GMailSender extends javax.mail.Authenticator {
         props.setProperty("mail.smpt.host", mailhost);
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.port", "465");
-        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.socketFactory.port", "465");
+        props.put("mail.smtp.socketFactory.class",
+                "javax.net.ssl.SSLSocketFactory");
         props.put("mail.smtp.starttls.enable", "true");
         props.put("mail.user", user);
         props.put("mail.password", password);
