@@ -45,7 +45,7 @@ public class SendMail extends CordovaPlugin {
                                                                                 list[j] = f;
                                                                         }
                                                                 } catch (JSONException e) {
-                                                                       // e.printStackTrace();
+                                                                      e.printStackTrace();
                                                                 }
 
                                                         }
