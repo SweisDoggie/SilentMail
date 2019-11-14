@@ -31,7 +31,7 @@ public class SendMail extends CordovaPlugin {
 						String sender = args.getString("sender");
 						String password = args.getString("password");
 						String recipients = args.getString("recipients");
-						String attachFiles[] = args.getArray("attachFiles");
+						String attachFiles[] = args.getJSONArray("attachFiles");
 						
 
 						// Create the sender
