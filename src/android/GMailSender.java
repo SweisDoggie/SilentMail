@@ -100,12 +100,19 @@ public class GMailSender extends javax.mail.Authenticator {
                 MimeBodyPart attachPart = new MimeBodyPart();
  
                 try {
-                    attachPart.attachFile(filePath);
+                    //attachPart.attachFile(filePath);
+                    
+                    File f =new File(filePath);
+
+                    attachPart.attachFile(f);
+
+                    multipart.addBodyPart(attachPart);
+                    
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
  
-                multipart.addBodyPart(attachPart);
+                //multipart.addBodyPart(attachPart);
             }
         }
 
