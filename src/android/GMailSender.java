@@ -46,7 +46,10 @@ public class GMailSender extends javax.mail.Authenticator {
         props.put("mail.smtp.socketFactory.fallback", "false");
         props.put("mail.user", user);
         props.put("mail.password", password);
+        props.put("mail.debug","true");
+        
         props.setProperty("mail.smtp.quitwait", "true");
+        
 
         session = Session.getDefaultInstance(props, this);
     }
