@@ -55,7 +55,7 @@ public class GMailSender extends javax.mail.Authenticator {
         return new PasswordAuthentication(user, password);
     }
 
-    public synchronized void sendMail(String subject, String body, String sender, String recipients, String attachment) throws Exception {
+    public synchronized void sendMail(String subject, String body, String sender, String recipients, String[] attachFiles) throws Exception {
         // The message object
         MimeMessage message = new MimeMessage(session);
 
@@ -68,21 +68,42 @@ public class GMailSender extends javax.mail.Authenticator {
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(recipients));
         }
 
-        // Create multipart content.
-        Multipart multipart = new MimeMultipart("mixed");
-
-        // Add the body part
+        
+        // creates message part
         MimeBodyPart messageBodyPart = new MimeBodyPart();
-        messageBodyPart.setDataHandler(new DataHandler(new ByteArrayDataSource(body.getBytes(), "text/html")));
+        messageBodyPart.setContent(message, "text/html");
+        
+        // Create multipart content.
+        Multipart multipart = new MimeMultipart();
         multipart.addBodyPart(messageBodyPart);
 
+        // Add the body part
+        //MimeBodyPart messageBodyPart = new MimeBodyPart();
+        //messageBodyPart.setDataHandler(new DataHandler(new ByteArrayDataSource(body.getBytes(), "text/html")));
+        //multipart.addBodyPart(messageBodyPart);
+
         // Part two is attachment
-        if (attachment != null) {
-            messageBodyPart = new MimeBodyPart();
-            DataSource source = new FileDataSource(attachment);
-            messageBodyPart.setDataHandler(new DataHandler(source));
-            messageBodyPart.setFileName(attachment);
-            multipart.addBodyPart(messageBodyPart);
+        // if (attachment != null) {
+        //    messageBodyPart = new MimeBodyPart();
+        //    DataSource source = new FileDataSource(attachment);
+        //    messageBodyPart.setDataHandler(new DataHandler(source));
+        //     messageBodyPart.setFileName(attachment);
+        //     multipart.addBodyPart(messageBodyPart);
+        // }
+        
+                // adds attachments
+        if (attachFiles != null && attachFiles.length > 0) {
+            for (String filePath : attachFiles) {
+                MimeBodyPart attachPart = new MimeBodyPart();
+ 
+                try {
+                    attachPart.attachFile(filePath);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+ 
+                multipart.addBodyPart(attachPart);
+            }
         }
 
         // Put parts in message
